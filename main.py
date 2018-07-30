@@ -1,21 +1,27 @@
 import requests
 import json
+from matplotlib import pyplot
+api_endpoint ='https://api.coindesk.com/v1/bpi/historical/close.json'
 
-
-def fetch_btcn_data():
-	api_endpoint ='https://api.coindesk.com/v1/bpi/historical/close.json'
-
+def fetch_us_btc_data():
 	r = requests.get(api_endpoint+'?start=2018-04-01&end=2018-07-01')
+	json_file_btc = r.json()
+	btc_price_dict = json_file_btc['bpi']
+	btc_prices = []
 
+	for i in btc_price_dict:
+		btc_prices.append(btc_price_dict[i])
 
-	json_file_btcn = r.json()
-	btcn_price_dict = json_file_btcn['bpi']
-	btcn_prices = []
+	return btc_prices
 
-	for i in btcn_price_dict:
-		btcn_prices.append(btcn_price_dict[i])
+def fetch_uk_btc_data():
+	r = requests.get(api_endpoint+'?currency=GBP&start=2018-04-01&end=2018-07-01')
+	json_file_btc = r.json()
+	btc_price_dict = json_file_btc['bpi']
+	btc_prices = []
 
-	return btcn_prices
+	for i in btc_price_dict:
+		btc_prices.append(btc_price_dict[i])
 
+	return btc_prices
 
-print(fetch_btcn_data())
