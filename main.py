@@ -2,13 +2,15 @@ import requests
 import json
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
-
+from pdb import set_trace
 
 
 api_endpoint ='https://api.coindesk.com/v1/bpi/historical/close.json'
 
 def fetch_us_btc_data():
+	set_trace()
 	r = requests.get(api_endpoint+'?start=2018-04-01&end=2018-07-01')
+	# set_trace()
 	json_file_btc = r.json()
 	btc_price_dict = json_file_btc['bpi']
 	btc_prices = []
@@ -34,9 +36,9 @@ def fetch_uk_btc_data():
 
 	return btc_dates, btc_prices
 
-
+# set_trace()
 us_dates, us_prices = fetch_us_btc_data()
-
+# set_trace()
 uk_dates, uk_prices = fetch_uk_btc_data()
 
 # plt.plot_date(x = us_dates, y=us_prices, color = 'b')
@@ -85,3 +87,12 @@ def estimated_y0(x,y):
 
 # print(min(x), max(x))
 # print(min(y), max(y))
+ind_var = []
+d_var = []
+for i in range(5000,10000, 200):
+	ind_var.append(i)
+	d_var.append(estimate_slope(x,y)*i + estimated_y0(x,y))
+
+plt.scatter(ind_var, d_var, 'r' )
+
+plt.show()
