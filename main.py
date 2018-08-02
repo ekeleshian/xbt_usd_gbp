@@ -8,7 +8,7 @@ from pdb import set_trace
 api_endpoint ='https://api.coindesk.com/v1/bpi/historical/close.json'
 
 def fetch_us_btc_data():
-	set_trace()
+	# set_trace()
 	r = requests.get(api_endpoint+'?start=2018-04-01&end=2018-07-01')
 	# set_trace()
 	json_file_btc = r.json()
@@ -44,7 +44,7 @@ uk_dates, uk_prices = fetch_uk_btc_data()
 # plt.plot_date(x = us_dates, y=us_prices, color = 'b')
 # plt.plot_date(x=uk_dates, y=uk_prices, color = 'r')
 # plt.legend(['US = Blue, UK = Red'])
-# plt.show()
+
 
 x = us_prices
 y = uk_prices
@@ -68,8 +68,8 @@ def sum_of_variables(x):
 def sum_of_squares(x):
 	array_of_squares = []
 	for i in x:
-		array_of_squares.apend(i*i)
-	return array_of_squares
+		array_of_squares.append(i*i)
+	return sum(array_of_squares)
 
 
 def estimated_slope(x, y):
@@ -89,10 +89,12 @@ def estimated_y0(x,y):
 # print(min(y), max(y))
 ind_var = []
 d_var = []
-for i in range(5000,10000, 200):
+for i in range(int(min(x)),int(max(x)), 200):
 	ind_var.append(i)
-	d_var.append(estimate_slope(x,y)*i + estimated_y0(x,y))
+	d_var.append(estimated_slope(x,y)*i + estimated_y0(x,y))
 
-plt.scatter(ind_var, d_var, 'r' )
+# print(len(ind_var), len(d_var))
+plt.scatter(x, y)
+plt.scatter(ind_var, d_var )
 
 plt.show()
