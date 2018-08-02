@@ -24,12 +24,20 @@ def fetch_uk_btc_data():
 	json_file_btc = r.json()
 	btc_price_dict = json_file_btc['bpi']
 	btc_prices = []
+	btc_dates = []
 
 	for i in btc_price_dict:
 		btc_prices.append(btc_price_dict[i])
+		btc_dates.append(i)
 
-	return btc_prices
+	return btc_dates, btc_prices
 
 
-dates, prices = fetch_us_btc_data()
-print(dates)
+us_dates, us_prices = fetch_us_btc_data()
+
+uk_dates, uk_prices = fetch_uk_btc_data()
+
+plt.plot_date(x = us_dates, y=us_prices, color = 'b')
+plt.plot_date(x=uk_dates, y=uk_prices, color = 'r')
+plt.legend(['US = Blue, UK = Red'])
+plt.show()
